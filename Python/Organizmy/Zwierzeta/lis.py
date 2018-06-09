@@ -1,5 +1,8 @@
 from Organizmy.zwierze import Zwierze
+<<<<<<< HEAD
 import random
+=======
+>>>>>>> a6c42c0fc6da3ad6f491757526072113e462d7b0
 
 class Lis(Zwierze):
 
