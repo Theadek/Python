@@ -2,6 +2,7 @@ from oknoController import Okno
 from swiat import Swiat
 from random import randint
 from logger import Logger
+from Organizmy import organizm
 
 log=Logger()
 okno = Okno(log,(20,20))
@@ -12,7 +13,7 @@ rozmiar=(20,20)
 swiat=Swiat(rozmiar)
 okno.setSwiat(swiat)
 
-for i in range(0,20):
-    log.dodajLog(str(i))
+#org=Organizm(swiat)
+
 okno.symulacja()
 
