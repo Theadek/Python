@@ -18,6 +18,7 @@ class Okno:
         self._listbox=None
 
 
+
     def setSwiat(self, s):
         self._swiat=s
 
@@ -112,29 +113,29 @@ class Okno:
                 obraz = None
                 znak = plansza[x][y]
                 if znak != None:
-                    if znak == 'z':
+                    if znak == 'Z':
                         obraz = self.zolw
-                    elif znak == 'a':
+                    elif znak == 'A':
                         obraz = self.antylopa
-                    elif znak == 'w':
+                    elif znak == 'W':
                         obraz = self.wilk
-                    elif znak == 'l':
+                    elif znak == 'L':
                         obraz = self.lis
-                    elif znak == 'o':
+                    elif znak == 'O':
                         obraz = self.owca
-                    elif znak == 'c':
+                    elif znak == 'C':
                         obraz = self.cyber_owca
                     elif znak == '@':
                         obraz = self.czlowiek
-                    elif znak == 't':
+                    elif znak == 'T':
                         obraz = self.trawa
-                    elif znak == 'g':
+                    elif znak == 'G':
                         obraz = self.guarana
-                    elif znak == 'm':
+                    elif znak == 'M':
                         obraz = self.mlecz
-                    elif znak == 'W':
+                    elif znak == 'J':
                         obraz = self.wilcza_jagoda
-                    elif znak == 'b':
+                    elif znak == 'B':
                         obraz = self.barszcz
 
                 self._c_plansza.create_image(x * self._rozmiarPola, y * self._rozmiarPola, image=obraz,
