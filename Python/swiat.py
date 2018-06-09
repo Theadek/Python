@@ -6,7 +6,7 @@ class Swiat:
         self.__wysokosc=rozmiar[1]
         self.__szerokosc=rozmiar[0]
         self.__plansza=[[None for y in range(self.__wysokosc)] for x in range(self.__szerokosc)]
-        self._skillIsActive=false
+        self._skillIsActive=False
         self._cooldown=0
         self._duration=0
         self.wypiszPlansze()
