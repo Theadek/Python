@@ -26,6 +26,12 @@ class Organizm:
     def setY(self, y):
         self._y=y
 
+    def getX(self):
+        return self._x
+
+    def getY(self):
+        return self._y
+
     def setSila(self, s):
         self._sila=s
 

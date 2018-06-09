@@ -2,6 +2,9 @@ from random import randrange
 from Organizmy.organizm import Organizm
 from Organizmy.roslina import Roslina
 from Organizmy.Rosliny.mlecz import Mlecz
+from Organizmy.Rosliny.trawa import Trawa
+from Organizmy.Rosliny.guarana import Guarana
+from Organizmy.Rosliny.jagoda import Jagoda
 from Organizmy.Zwierzeta.wilk import Wilk
 from Organizmy.Zwierzeta.owca import Owca
 from Organizmy.Zwierzeta.lis import Lis
@@ -128,6 +131,10 @@ class Swiat:
         print(str(x)+" "+str(y))
         return self.__plansza[x][y]
 
+    def zabij(self, org):
+        self.__plansza[org.getX()][org.getY()]=None
+        self._organizmy.remove(org)
+
     def moveOrganizm(self, oldX, oldY, newX, newY):
         print(oldX)
         print(oldY)
@@ -155,7 +162,7 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
-        if c!='M' and c!='W' and c!='O' and c!='L' and c!='Z': return
+        if c=='A' or c=='C' or c=='B' or c=='@': return
 
         if c=='W': self.__plansza[x][y]=Wilk(self)
         elif c=='O': self.__plansza[x][y]=Owca(self)
@@ -163,12 +170,11 @@ class Swiat:
         elif c=='Z': self.__plansza[x][y]=Zolw(self)
         elif c=='L': self.__plansza[x][y]=Lis(self)
         #elif c=='C': self.__plansza[x][y]=CyberOwca(self)
-        #elif c=='T': self.__plansza[x][y]=Trawa(self)
+        elif c=='T': self.__plansza[x][y]=Trawa(self)
         #elif c=='B': self.__plansza[x][y]=Barszcz(self)
-        #elif c=='J': self.__plansza[x][y]=WilczaJagoda(self)
-        #elif c=='G': self.__plansza[x][y]=Guarana(self)
-        #elif c=='M': self.__plansza[x][y]=Mlecz(self)
-        if c=='M': self.__plansza[x][y]=Mlecz(self)
+        elif c=='J': self.__plansza[x][y]=Jagoda(self)
+        elif c=='G': self.__plansza[x][y]=Guarana(self)
+        elif c=='M': self.__plansza[x][y]=Mlecz(self)
         #elif c=='@': self.__plansza[x][y]=Czlowiek(self)
 
         #debugowanie
