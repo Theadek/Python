@@ -7,8 +7,9 @@ class Antylopa(Zwierze):
         i=0
         while  i < 2 :
             posibilities = []
-            posibilities = ref.availableMoves(x, y);
-            tmpX = self._x, tmpY = self._y;
+            posibilities = self._ref.availableMoves(self._x, self._y);
+            tmpX = self._x
+            tmpY = self._y;
             kierunek = random.randrange(len(posibilities))
             szansa = random.randrange(2)
             if (posibilities[kierunek] == "UP"): tmpY-=1
@@ -20,8 +21,8 @@ class Antylopa(Zwierze):
             elif (self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() == self._symbol):
                 self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
                 break
-            elif ((self._szansa == 1) and (self._ref.getOrganizmAtXY(tmpX, tmpY).getSila() > self._sila)):
-                self._ucieczka()
+            elif ((szansa == 1) and (self._ref.getOrganizmAtXY(tmpX, tmpY).getSila() > self._sila)):
+                self.ucieczka()
                 break;
             else:
                 self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
@@ -29,7 +30,7 @@ class Antylopa(Zwierze):
 
 
     def kolizja (self, comingX, comingY):
-        if (self._ref.getOrganizmAtXY(comingX, comingY).getSymbol() == selfie._symbol):
+        if (self._ref.getOrganizmAtXY(comingX, comingY).getSymbol() == self._symbol):
             super().kolizja(comingX, comingY)
         else:
             szansa = random.randrange(2)
@@ -39,22 +40,22 @@ class Antylopa(Zwierze):
                 super().kolizja(comingX, comingY)
 
 
-    def ucieczka(self)
-    posibilities = self._ref.availableMoves(self._x, self._y)
-    while (len(posibilities) > 0):
-        tmpX = self._x
-        tmpY = self._y
-        kierunek = random.randrange(len(posibilities))
-        if (posibilities[kierunek] == "UP"): tmpY-=1
-        elif (posibilities[kierunek] == "DOWN"): tmpY+=1
-        elif (posibilities[kierunek] == "LEFT"): tmpX-=1
-        elif (posibilities[kierunek] == "RIGHT"): tmpX+=1
-        if (self._ref.getOrganizmAtXY(tmpX, tmpY) == None):
-            self._ref.logger.dodajLog("ANTYLOPA UCIEKLA Z POLA " + self._x + " " + self._y)
-            self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
-            break
-        else:
-            posibilities.pop(kierunek)
+    def ucieczka(self):
+        posibilities = self._ref.availableMoves(self._x, self._y)
+        while (len(posibilities) > 0):
+            tmpX = self._x
+            tmpY = self._y
+            kierunek = random.randrange(len(posibilities))
+            if (posibilities[kierunek] == "UP"): tmpY-=1
+            elif (posibilities[kierunek] == "DOWN"): tmpY+=1
+            elif (posibilities[kierunek] == "LEFT"): tmpX-=1
+            elif (posibilities[kierunek] == "RIGHT"): tmpX+=1
+            if (self._ref.getOrganizmAtXY(tmpX, tmpY) == None):
+                self._ref._logger.dodajLog("ANTYLOPA UCIEKLA Z POLA " + self._x + " " + self._y)
+                self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
+                break
+            else:
+                posibilities.pop(kierunek)
 
 
 

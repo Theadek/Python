@@ -9,6 +9,7 @@ from Organizmy.Zwierzeta.wilk import Wilk
 from Organizmy.Zwierzeta.owca import Owca
 from Organizmy.Zwierzeta.lis import Lis
 from Organizmy.Zwierzeta.zolw import Zolw
+from Organizmy.Zwierzeta.antylopa import Antylopa
 from logger import Logger
 
 #//jednorazowe tworzenie czlowieka w kostruktorze
@@ -162,11 +163,11 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
-        if c=='A' or c=='C' or c=='B' or c=='@': return
+        if c=='C' or c=='B' or c=='@': return
 
         if c=='W': self.__plansza[x][y]=Wilk(self)
         elif c=='O': self.__plansza[x][y]=Owca(self)
-        #elif c=='A': self.__plansza[x][y]=Antylopa(self)
+        elif c=='A': self.__plansza[x][y]=Antylopa(self)
         elif c=='Z': self.__plansza[x][y]=Zolw(self)
         elif c=='L': self.__plansza[x][y]=Lis(self)
         #elif c=='C': self.__plansza[x][y]=CyberOwca(self)
