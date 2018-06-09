@@ -1,5 +1,5 @@
 from swiat import *
-
+import abc
 class Organizm:
 
     def __init__(self, r):
@@ -43,11 +43,11 @@ class Organizm:
     def setAlive(self,a ):
         self._alive=a
 
-    @abstractmethod
+    @abc.abstractmethod
     def akcja(self):
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def kolizja(self, comingX, comingY):
         pass
 
