@@ -1,16 +1,39 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog
-
+from tkinter import Scrollbar
+from tkinter import Listbox
+import swiat
 
 class Okno:
 
-    def __init__(self):
-        self._szerokosc=0
-        self._wysokosc=0
+    def __init__(self, log, r=(0,0)):
+        self._szerokosc=r[0]
+        self._wysokosc=r[1]
         self._rozmiarPola=30
         self._master=None
+        self._c_plansza=None
+        self._swiat=None
+        self._logger=log
+        self._listbox=None
 
+
+    def setSwiat(self, s):
+        self._swiat=s
+
+    def setImages(self):
+        self.owca = PhotoImage(file="..\img\owca.png")
+        self.zolw = PhotoImage(file="..\img\zolw.png")
+        self.wilk = PhotoImage(file="..\img\wilk.png")
+        self.antylopa = PhotoImage(file="..\img\Antylopa.png")
+        self.cyber_owca = PhotoImage(file="..\img\cyber_owca.png")
+        self.czlowiek = PhotoImage(file="..\img\czlowiek.png")
+        self.lis = PhotoImage(file="..\img\lis.png")
+        self.mlecz = PhotoImage(file="..\img\mlecz.png")
+        self.trawa = PhotoImage(file="..\img\Trawa.png")
+        self.guarana = PhotoImage(file="..\img\guarana.png")
+        self.wilcza_jagoda = PhotoImage(file="..\img\wilcza_jagoda.png")
+        self.barszcz = PhotoImage(file="..\img\Barszcz.png")
 
     def wczytaj_rozmiar(self):
         master=Tk()
@@ -63,12 +86,65 @@ class Okno:
         print(plik)
 
     def nowaTura(self):
+        self._c_plansza.delete(ALL)
+        self.rysujPlansze()
+        self.umiescZdjecia()
+        self._listbox.delete(0, END)
+        self._logger.czyscLog()
+        #swiat.wykonaj ture
+        for i in self._logger.getLog():
+            self._listbox.insert(i)
+        self._logger.czyscLog()
+
         print("Nowa tura!")
+
+    def rysujPlansze(self):
+        for i in range(0, self._wysokosc):
+            self._c_plansza.create_line(0, i * self._rozmiarPola, self._szerokosc * self._rozmiarPola,
+                                        i * self._rozmiarPola)
+        for i in range(0, self._szerokosc):
+            self._c_plansza.create_line(i * self._rozmiarPola, 0, i * self._rozmiarPola, self._wysokosc * self._rozmiarPola)
+
+    def umiescZdjecia(self):
+        plansza = self._swiat.getPlansza()
+        for y in range(0, self._wysokosc):
+            for x in range(0, self._szerokosc):
+                obraz = None
+                znak = plansza[x][y]
+                if znak != None:
+                    if znak == 'z':
+                        obraz = self.zolw
+                    elif znak == 'a':
+                        obraz = self.antylopa
+                    elif znak == 'w':
+                        obraz = self.wilk
+                    elif znak == 'l':
+                        obraz = self.lis
+                    elif znak == 'o':
+                        obraz = self.owca
+                    elif znak == 'c':
+                        obraz = self.cyber_owca
+                    elif znak == '@':
+                        obraz = self.czlowiek
+                    elif znak == 't':
+                        obraz = self.trawa
+                    elif znak == 'g':
+                        obraz = self.guarana
+                    elif znak == 'm':
+                        obraz = self.mlecz
+                    elif znak == 'W':
+                        obraz = self.wilcza_jagoda
+                    elif znak == 'b':
+                        obraz = self.barszcz
+
+                self._c_plansza.create_image(x * self._rozmiarPola, y * self._rozmiarPola, image=obraz,
+                                             anchor=NW)
 
     def symulacja(self):
         self._master=Tk()
         self._master.title("Symulacja")
         self._master.resizable(0,0)
+        self.setImages()
         def left(e):
             print("left key")
         def right(e):
@@ -84,24 +160,26 @@ class Okno:
             y=e.y
             wspolrzedne_xy=(x//self._rozmiarPola, y//self._rozmiarPola)
             print(wspolrzedne_xy)
-        def rysujPlansze():
-            for i in range(0,self._szerokosc):
-                c_plansza.create_line(0,i*self._rozmiarPola, self._wysokosc*self._rozmiarPola, i*self._rozmiarPola)
-            for i in range(0,self._wysokosc):
-                c_plansza.create_line(i*self._rozmiarPola,0, i*self._rozmiarPola, self._szerokosc*self._rozmiarPola)
 
-
-        c_plansza = Canvas(self._master, bg="red", width=self._rozmiarPola * self._szerokosc,
+        self._c_plansza = Canvas(self._master, bg="red", width=self._rozmiarPola * self._szerokosc,
                            height=self._rozmiarPola * self._wysokosc)
-        c_plansza.pack(side="bottom")
-        rysujPlansze()
+        self._c_plansza.pack(side="bottom")
+
+        self.rysujPlansze()
+        self.umiescZdjecia()
+
+        scrollbar = Scrollbar(self._master)
+        self._listbox = Listbox(self._master, bd=0, yscrollcommand=scrollbar.set)
+        scrollbar.config(command=self._listbox.yview)
+
 
         self._master.bind("<Left>", left)
         self._master.bind("<Right>", right)
         self._master.bind("<Up>", up)
         self._master.bind("<Down>", down)
         self._master.bind("<q>", ability)
-        c_plansza.bind("<Button 1>", click)
+        self._master.bind("<D>", ability)
+        self._c_plansza.bind("<Button 1>", click)
 
         b_zapisz=Button(self._master, text="Zapisz", command=self.zapisz)
         b_wczytaj=Button(self._master, text="Wczytaj", command=self.wczytaj)
@@ -109,15 +187,18 @@ class Okno:
 
         #ustawianie rozmiaru okna
         if(self._rozmiarPola*self._szerokosc<300):
-            self._master.geometry("300x"+str(self._rozmiarPola*self._wysokosc+50))
+            self._master.geometry("300x"+str(self._rozmiarPola*self._wysokosc+300))
             b_zapisz.place(x=0, y=0, width=100, height=40)
             b_wczytaj.place(x=100, y=0, width=100, height=40)
             b_nowa_tura.place(x=200, y=0, width=100, height=40)
+            self._listbox.place(x=0, y=50, width=300, height=200)
         else:
-            self._master.geometry(str(self._rozmiarPola*self._szerokosc)+"x"+str(self._rozmiarPola*self._wysokosc+50))
+            self._master.geometry(str(self._rozmiarPola*self._szerokosc)+"x"+str(self._rozmiarPola*self._wysokosc+300))
             pol_x = (self._rozmiarPola * self._szerokosc - 300) / 2
             b_zapisz.place(x=pol_x, y=0, width=100, height=40)
             b_wczytaj.place(x=pol_x + 100, y=0, width=100, height=40)
             b_nowa_tura.place(x=pol_x + 200, y=0, width=100, height=40)
+            self._listbox.place(x=pol_x, y=50, width=300, height=200)
+
 
         self._master.mainloop()
