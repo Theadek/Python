@@ -162,7 +162,7 @@ class Okno:
             wspolrzedne_xy=(x//self._rozmiarPola, y//self._rozmiarPola)
             print(wspolrzedne_xy)
 
-        self._c_plansza = Canvas(self._master, bg="red", width=self._rozmiarPola * self._szerokosc,
+        self._c_plansza = Canvas(self._master, bg="grey", width=self._rozmiarPola * self._szerokosc,
                            height=self._rozmiarPola * self._wysokosc)
         self._c_plansza.pack(side="bottom")
 

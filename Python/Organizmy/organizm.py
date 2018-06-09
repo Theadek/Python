@@ -13,7 +13,6 @@ class Organizm:
         self._symbol=None
         self._justBorn=None
         self._alive=None
-        self._ref=r
 
     def getSila(self):
         return self._sila
