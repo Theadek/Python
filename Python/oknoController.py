@@ -22,18 +22,18 @@ class Okno:
         self._swiat=s
 
     def setImages(self):
-        self.owca = PhotoImage(file="..\img\owca.png")
-        self.zolw = PhotoImage(file="..\img\zolw.png")
-        self.wilk = PhotoImage(file="..\img\wilk.png")
-        self.antylopa = PhotoImage(file="..\img\Antylopa.png")
-        self.cyber_owca = PhotoImage(file="..\img\cyber_owca.png")
-        self.czlowiek = PhotoImage(file="..\img\czlowiek.png")
-        self.lis = PhotoImage(file="..\img\lis.png")
-        self.mlecz = PhotoImage(file="..\img\mlecz.png")
-        self.trawa = PhotoImage(file="..\img\Trawa.png")
-        self.guarana = PhotoImage(file="..\img\guarana.png")
-        self.wilcza_jagoda = PhotoImage(file="..\img\wilcza_jagoda.png")
-        self.barszcz = PhotoImage(file="..\img\Barszcz.png")
+        self.owca = PhotoImage(file="img\owca.png")
+        self.zolw = PhotoImage(file="img\zolw.png")
+        self.wilk = PhotoImage(file="img\wilk.png")
+        self.antylopa = PhotoImage(file="img\Antylopa.png")
+        self.cyber_owca = PhotoImage(file="img\cyber_owca.png")
+        self.czlowiek = PhotoImage(file="img\czlowiek.png")
+        self.lis = PhotoImage(file="img\lis.png")
+        self.mlecz = PhotoImage(file="img\mlecz.png")
+        self.trawa = PhotoImage(file="img\Trawa.png")
+        self.guarana = PhotoImage(file="img\guarana.png")
+        self.wilcza_jagoda = PhotoImage(file="img\wilcza_jagoda.png")
+        self.barszcz = PhotoImage(file="img\Barszcz.png")
 
     def wczytaj_rozmiar(self):
         master=Tk()
