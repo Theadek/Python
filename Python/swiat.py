@@ -1,6 +1,12 @@
 from random import randrange
+from Organizmy.organizm import Organizm
+from Organizmy.roslina import Roslina
+from Organizmy.Rosliny.mlecz import Mlecz
+from logger import Logger
+
 #//jednorazowe tworzenie czlowieka w kostruktorze
 #//makeOrganizm w losuj()
+#//dodać sprawdzzanie czy skill aktywny
 class Swiat:
 
     def __init__(self, rozmiar, logger):
@@ -26,6 +32,22 @@ class Swiat:
     def setPlansza(self, x,y,val):
         self.__plansza[x][y]=val
         self.__plansza[self._x][self._y]=None
+
+
+    def czysc(self):
+        for o in self._organizmy:
+            if o.getAlive()==False:
+                self._organizmy.remove(o)
+
+    def wykonajTure(self):
+        #czy skill aktywny()
+        for o in self._organizmy:
+            if o.getAlive()==False: pass
+            elif o.getBorn()==True: o.setBorn(False)
+            else: o.akcja()
+
+        self.czysc()
+
 
     def losuj(self, n):
         randX=0
@@ -76,7 +98,7 @@ class Swiat:
     def availableMove(self, x,y):
         odp=[]
         if x!=0: odp.append("LEFT")
-        elif x!=self.__szerokosc-1: odp.append("RIGHT")
+        if x!=self.__szerokosc-1: odp.append("RIGHT")
         if y!=0: odp.append("UP")
         if y!=self.__wysokosc-1: odp.append("DOWN")
         return odp
@@ -103,29 +125,38 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
+        if(c!='M'): return
 
-        if c=='W': self.__plansza[x][y]=Wilk(self)
-        elif c=='O': self.__plansza[x][y]=Owca(self)
-        elif c=='A': self.__plansza[x][y]=Antylopa(self)
-        elif c=='Z': self.__plansza[x][y]=Zolw(self)
-        elif c=='L': self.__plansza[x][y]=Lis(self)
-        elif c=='C': self.__plansza[x][y]=CyberOwca(self)
-        elif c=='T': self.__plansza[x][y]=Trawa(self)
-        elif c=='B': self.__plansza[x][y]=Barszcz(self)
-        elif c=='J': self.__plansza[x][y]=WilczaJagoda(self)
-        elif c=='G': self.__plansza[x][y]=Guarana(self)
-        elif c=='M': self.__plansza[x][y]=Mlecz(self)
-        elif c=='@': self.__plansza[x][y]=Czlowiek(self)
+        #if c=='W': self.__plansza[x][y]=Wilk(self)
+        #elif c=='O': self.__plansza[x][y]=Owca(self)
+        #elif c=='A': self.__plansza[x][y]=Antylopa(self)
+        #elif c=='Z': self.__plansza[x][y]=Zolw(self)
+        #elif c=='L': self.__plansza[x][y]=Lis(self)
+        #elif c=='C': self.__plansza[x][y]=CyberOwca(self)
+        #elif c=='T': self.__plansza[x][y]=Trawa(self)
+        #elif c=='B': self.__plansza[x][y]=Barszcz(self)
+        #elif c=='J': self.__plansza[x][y]=WilczaJagoda(self)
+        #elif c=='G': self.__plansza[x][y]=Guarana(self)
+        #elif c=='M': self.__plansza[x][y]=Mlecz(self)
+        if c=='M': self.__plansza[x][y]=Mlecz(self)
+        #elif c=='@': self.__plansza[x][y]=Czlowiek(self)
 
+        #debugowanie
+        #print(type(self.__plansza[x][y]))
+        #print(str(x)+" "+str(y))
+        #print(self.__plansza[x][y].getSymbol())
         self.__plansza[x][y].setX(x)
         self.__plansza[x][y].setY(y)
-        for o in range(0,len(self._organizmy)):
-            if self.__plansza[x][y].getInicjatywa()>self._organizmy[o].getInicjatywa():
-                self._organizmy.insert(o, self.__plansza[x][y])
-                break
-            elif o==len(self._organizmy)-1:
-                self._organizmy.append(self.__plansza[x][y])
-                break
+        if len(self._organizmy)==0:
+            self._organizmy.append(self.__plansza[x][y])
+        else:
+            for o in range(0,len(self._organizmy)):
+                if self.__plansza[x][y].getInicjatywa()>self._organizmy[o].getInicjatywa():
+                    self._organizmy.insert(o, self.__plansza[x][y])
+                    break
+                elif o==len(self._organizmy)-1:
+                    self._organizmy.append(self.__plansza[x][y])
+                    break
 
 
 

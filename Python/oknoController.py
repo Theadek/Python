@@ -96,6 +96,7 @@ class Okno:
         for i in self._logger.getLog():
             self._listbox.insert(i)
         self._logger.czyscLog()
+        self._swiat.wykonajTure()
 
         print("Nowa tura!")
 
@@ -111,7 +112,9 @@ class Okno:
         for y in range(0, self._wysokosc):
             for x in range(0, self._szerokosc):
                 obraz = None
-                znak = plansza[x][y]
+                znak = None
+                if(self._swiat.getOrganizmAtXY(x,y)!=None):
+                    znak = self._swiat.getOrganizmAtXY(x,y).getSymbol()
                 if znak != None:
                     if znak == 'Z':
                         obraz = self.zolw
@@ -179,7 +182,7 @@ class Okno:
         self._master.bind("<Up>", up)
         self._master.bind("<Down>", down)
         self._master.bind("<q>", ability)
-        self._master.bind("<D>", ability)
+        self._master.bind("<Q>", ability)
         self._c_plansza.bind("<Button 1>", click)
 
         b_zapisz=Button(self._master, text="Zapisz", command=self.zapisz)
