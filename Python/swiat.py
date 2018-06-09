@@ -76,7 +76,7 @@ class Swiat:
     def availableMove(self, x,y):
         odp=[]
         if x!=0: odp.append("LEFT")
-        elif x!=self.__szerokosc-1: odp.append("RIGHT")
+        if x!=self.__szerokosc-1: odp.append("RIGHT")
         if y!=0: odp.append("UP")
         if y!=self.__wysokosc-1: odp.append("DOWN")
         return odp
