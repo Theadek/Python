@@ -1,5 +1,4 @@
-from swiat import *
-from organizm import *
+from Organizmy.organizm import Organizm
 import random
 
 class Zwierze(Organizm):
@@ -10,23 +9,23 @@ class Zwierze(Organizm):
     def akcja(self):
         tmpX = self._x
         tmpY = self._y
-        posibilites = []
-        posibilites = ref.availableMoves(self._x, self._y)
-        kierunek = random.randrange(0, len(posibilites))
+        posibilities = []
+        posibilities = self._ref.availableMoves(self._x, self._y)
+        kierunek = random.randrange(0, len(posibilities))
         if posibilities[kierunek] == "UP": tmpY+=1
         elif posibilities[kierunek] == "DOWN": tmpY+=1
         elif posibilities[kierunek] == "LEFT": tmpX-=1
         elif posibilities[kierunek] == "RIGHT": tmpX+=1
 
-        if ref.getOrganizmAtXY(tmpX, tmpY) == None:
-            ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
+        if self._ref.getOrganizmAtXY(tmpX, tmpY) == None:
+            self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
         else:
-            ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
+            self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
 
     def kolizja(self, comingX, comingY):
-        if ref.getOrganizmAtXY(comingX, comingY).getSymbol() == self._symbol: # rozmnazanie
+        if self._ref.getOrganizmAtXY(comingX, comingY).getSymbol() == self._symbol: # rozmnazanie
             posibilities = []
-            posibilities = ref.availableMoves(self._x, self._y)
+            posibilities = self._ref.availableMoves(self._x, self._y)
 
             while len(posibilities) > 0:
 
@@ -38,16 +37,16 @@ class Zwierze(Organizm):
                 elif posibilities[kierunek] == "LEFT": tmpX-=1
                 elif posibilities[kierunek] == "RIGHT": tmpX+=1
 
-                if ref.getOrganizmAtXY(tmpX, tmpY) == None:
-                    ref.makeOrganizm(tmpX, tmpY, self._symbol)
+                if self._ref.getOrganizmAtXY(tmpX, tmpY) == None:
+                    self._ref.makeOrganizm(tmpX, tmpY, self._symbol)
                     break
                 else:
                     posibilities.remove(kierunek)
 
-        elif ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila:
-            ref.moveOrganizm(comingX, comingY, self._x, self._y)
+        elif self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila:
+            self._ref.moveOrganizm(comingX, comingY, self._x, self._y)
         else:
-            ref.logger.dodajLog(ref.fullname(ref.getOrganizmAtXY(self._x, self._y).getSymbol()) + " " + self._x + " " + self._y +" ZABIJA " + ref.fullname_R(ref.getOrganizmAtXY(comingX, comingY).getSymbol()) + " " + comingX + " " + comingY)
-            ref.removeOrganizm(comingX, comingY)
+            self._ref._logger.dodajLog(ref.fullname(self._ref.getOrganizmAtXY(self._x, self._y).getSymbol()) + " " + self._x + " " + self._y +" ZABIJA " + self._ref.fullname_R(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol()) + " " + comingX + " " + comingY)
+            self._ref.removeOrganizm(comingX, comingY)
 
 

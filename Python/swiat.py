@@ -2,6 +2,10 @@ from random import randrange
 from Organizmy.organizm import Organizm
 from Organizmy.roslina import Roslina
 from Organizmy.Rosliny.mlecz import Mlecz
+from Organizmy.Zwierzeta.wilk import Wilk
+from Organizmy.Zwierzeta.owca import Owca
+from Organizmy.Zwierzeta.lis import Lis
+from Organizmy.Zwierzeta.zolw import Zolw
 from logger import Logger
 
 #//jednorazowe tworzenie czlowieka w kostruktorze
@@ -95,7 +99,7 @@ class Swiat:
     def getWidth(self):
         return self.__szerokosc
 
-    def availableMove(self, x,y):
+    def availableMoves(self, x,y):
         odp=[]
         if x!=0: odp.append("LEFT")
         if x!=self.__szerokosc-1: odp.append("RIGHT")
@@ -125,13 +129,13 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
-        if(c!='M'): return
+        if c!='M' and c!='W' and c!='O' and c!='L' and c!='Z': return
 
-        #if c=='W': self.__plansza[x][y]=Wilk(self)
-        #elif c=='O': self.__plansza[x][y]=Owca(self)
+        if c=='W': self.__plansza[x][y]=Wilk(self)
+        elif c=='O': self.__plansza[x][y]=Owca(self)
         #elif c=='A': self.__plansza[x][y]=Antylopa(self)
-        #elif c=='Z': self.__plansza[x][y]=Zolw(self)
-        #elif c=='L': self.__plansza[x][y]=Lis(self)
+        elif c=='Z': self.__plansza[x][y]=Zolw(self)
+        elif c=='L': self.__plansza[x][y]=Lis(self)
         #elif c=='C': self.__plansza[x][y]=CyberOwca(self)
         #elif c=='T': self.__plansza[x][y]=Trawa(self)
         #elif c=='B': self.__plansza[x][y]=Barszcz(self)

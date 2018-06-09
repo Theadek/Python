@@ -8,7 +8,7 @@ class Roslina(Organizm):
         self._luck = 25
 
     def akcja(self):
-        mozliwosci=self._ref.availableMove(self._x,self._y)
+        mozliwosci=self._ref.availableMoves(self._x,self._y)
         kierunek=None
         tmpX=None
         tmpY=None
