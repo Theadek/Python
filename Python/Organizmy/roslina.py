@@ -29,7 +29,6 @@ class Roslina(Organizm):
                 self._ref.makeOrganizm(tmpX, tmpY, self._symbol)
                 break
             else:
-
                 del(mozliwosci[kierunek])
 
     def kolizja(self,comingX, comingY):

@@ -87,16 +87,15 @@ class Okno:
         print(plik)
 
     def nowaTura(self):
+        self._logger.czyscLog()
         self._c_plansza.delete(ALL)
         self.rysujPlansze()
         self.umiescZdjecia()
         self._listbox.delete(0, END)
-        self._logger.czyscLog()
-        #swiat.wykonaj ture
-        for i in self._logger.getLog():
-            self._listbox.insert(i)
-        self._logger.czyscLog()
         self._swiat.wykonajTure()
+        for i in self._logger.getLog():
+            self._listbox.insert(END, i)
+
 
         print("Nowa tura!")
 

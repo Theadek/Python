@@ -72,7 +72,6 @@ class Swiat:
                         if self.__plansza[randX][randY]==None:
                             #dodaj organizm
                             self.makeOrganizm(randX, randY,znak)
-                            #self.__plansza[randX][randY]=znak
                             liczba_stworzen-=1
                             break
 
@@ -89,6 +88,24 @@ class Swiat:
         elif x=='T': return "TRAWA"
         elif x=='W': return "WILK"
         elif x=='Z': return "ZOLW"
+
+
+    def fullname_R(x):
+        if x == 'A': return "ANTYLOPE";
+        elif x == 'B': return "BARSZCZ";
+        elif x == 'C': return "CYBER-OWCE";
+        elif x == '@': return "CZLOWIEKA"
+        elif x == 'G': return "GUARANE";
+        elif x == 'J': return "JAGODE";
+        elif x == 'L': return "LISA";
+        elif x == 'M': return "MLECZA";
+        elif x == 'O': return "OWCE";
+        elif x == 'T': return "TRAWE";
+        elif x == 'W': return "WILKA";
+        elif x == 'Z': return "ZOLWA";
+
+
+
 
     def getSkill(self):
         return self._skillIsActive
@@ -108,15 +125,24 @@ class Swiat:
         return odp
 
     def getOrganizmAtXY(self,x,y):
+        print(str(x)+" "+str(y))
         return self.__plansza[x][y]
 
     def moveOrganizm(self, oldX, oldY, newX, newY):
+        print(oldX)
+        print(oldY)
+        print(newX)
+        print(newY)
         if self.__plansza[newX][newY]!=None:
+            print(self.__plansza[oldX][oldY])
+            print(str(oldX)+" "+str(oldY))
+            print(self.__plansza[newX][newY])
+            print(str(newX) + " " + str(newY))
             self._logger.dodajLog(
-                self.fullname(self.__plansza[oldX][oldY]).getSymbol()+" z "+
-                +"("+str(oldX)+","+str(oldY)+") zabija "+
-                self.fullname(self.__plansza[newX][newY]).getSymbol() + " na " +
-                +"(" + str(newX) + "," + str(newY) + ")"
+                self.fullname(self.__plansza[oldX][oldY].getSymbol())+" z "+
+                "("+str(oldX)+","+str(oldY)+") zabija "+
+                self.fullname(self.__plansza[newX][newY].getSymbol()) + " na "+
+                "(" + str(newX) + "," + str(newY) + ")"
             )
             self.__plansza[newX][newY].setAlive(False)
 

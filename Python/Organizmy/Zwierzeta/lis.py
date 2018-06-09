@@ -12,7 +12,7 @@ class Lis(Zwierze):
         while len(posibilities) > 0:
             kierunek = random.randrange(0, len(posibilities))
             if posibilities[kierunek] == "UP":
-                tmpY += 1
+                tmpY -= 1
             elif posibilities[kierunek] == "DOWN":
                 tmpY += 1
             elif posibilities[kierunek] == "LEFT":
@@ -23,7 +23,7 @@ class Lis(Zwierze):
             if self._ref.getOrganizmAtXY(tmpX, tmpY) == None:
                 self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
                 break
-            elif ((self._ref.getOrganizmAtXY(tmpX, tmpY).getSila() <= sila) or (self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() == symbol)):
+            elif ((self._ref.getOrganizmAtXY(tmpX, tmpY).getSila() <= self._sila) or (self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() == self._symbol)):
                 self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
                 break
             else:
