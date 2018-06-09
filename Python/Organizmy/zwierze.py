@@ -1,6 +1,5 @@
 from swiat import *
 from organizm import *
-import abc
 import random
 
 class Zwierze(Organizm):
