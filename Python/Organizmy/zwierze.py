@@ -41,7 +41,7 @@ class Zwierze(Organizm):
                     self._ref.makeOrganizm(tmpX, tmpY, self._symbol)
                     break
                 else:
-                    del(possibilities[kierunek])
+                    del(posibilities[kierunek])
 
         elif self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila:
             self._ref.moveOrganizm(comingX, comingY, self._x, self._y)
