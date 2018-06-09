@@ -14,6 +14,6 @@ rozmiar=(20,20)
 
 swiat=Swiat(rozmiar, log)
 okno.setSwiat(swiat)
-
+# mam nadzieje ze działa
 
 okno.symulacja()
