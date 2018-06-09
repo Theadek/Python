@@ -1,6 +1,4 @@
-from swiat import *
-from organizm import *
-from zwierze import *
+from Organizmy.zwierze import Zwierze
 
 class Lis(Zwierze):
 
@@ -33,5 +31,5 @@ class Lis(Zwierze):
         self._sila = 3;
         self._inicjatywa = 7;
         self._symbol = 'L';
-        self._justBorn = true;
-        self._alive = true;
+        self._justBorn = True;
+        self._alive = True;

@@ -1,6 +1,4 @@
-from swiat import *
-from organizm import *
-from zwierze import *
+from Organizmy.zwierze import Zwierze
 
 class Owca(Zwierze):
 
@@ -9,5 +7,5 @@ class Owca(Zwierze):
         self._sila = 4;
         self._inicjatywa = 4;
         self._symbol = 'O';
-        self._justBorn = true;
-        self._alive = true;
+        self._justBorn = True;
+        self._alive = True;

@@ -1,6 +1,4 @@
-from swiat import *
-from organizm import *
-from zwierze import *
+from Organizmy.zwierze import Zwierze
 import random
 
 class Zolw(Zwierze):
@@ -23,5 +21,5 @@ class Zolw(Zwierze):
         self._sila = 2;
         self._inicjatywa = 1;
         self._symbol = 'Z';
-        self._justBorn = true;
-        self._alive = true;
+        self._justBorn = True;
+        self._alive = True;
