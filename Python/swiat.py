@@ -90,7 +90,7 @@ class Swiat:
         elif x=='Z': return "ZOLW"
 
 
-    def fullname_R(x):
+    def fullname_R(self, x):
         if x == 'A': return "ANTYLOPE";
         elif x == 'B': return "BARSZCZ";
         elif x == 'C': return "CYBER-OWCE";
