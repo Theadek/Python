@@ -2,7 +2,7 @@ from swiat import *
 from organizm import *
 from zwierze import *
 
-class Owca(Zwierze):
+class Wilk(Zwierze):
 
     def __init__(self, r):
         super(Wilk, self).__init__(r)
