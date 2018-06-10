@@ -80,7 +80,6 @@ class Swiat:
                     if self.__plansza[randX][randY]==None:
                         #dodaj organizm
                         self.makeOrganizm(randX, randY,znak)
-                        liczba_stworzen-=1
                         break
 
     def fullname(self, x):
