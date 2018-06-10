@@ -17,7 +17,8 @@ class Antylopa(Zwierze):
             elif (posibilities[kierunek] == "LEFT"): tmpX-=1
             elif (posibilities[kierunek] == "RIGHT"): tmpX+=1
             if self._ref.getOrganizmAtXY(tmpX, tmpY) == None:
-                self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY);
+                self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
+                i+=1
             elif (self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() == self._symbol):
                 self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
                 break
@@ -26,7 +27,7 @@ class Antylopa(Zwierze):
                 break;
             else:
                 self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
-            break
+                break
 
 
     def kolizja (self, comingX, comingY):
