@@ -5,6 +5,7 @@ from Organizmy.Rosliny.mlecz import Mlecz
 from Organizmy.Rosliny.trawa import Trawa
 from Organizmy.Rosliny.guarana import Guarana
 from Organizmy.Rosliny.jagoda import Jagoda
+from Organizmy.Rosliny.barszcz import Barszcz
 from Organizmy.Zwierzeta.wilk import Wilk
 from Organizmy.Zwierzeta.owca import Owca
 from Organizmy.Zwierzeta.lis import Lis
@@ -27,6 +28,7 @@ class Swiat:
         self._skillIsActive=False
         self._cooldown=0
         self._duration=0
+        self._licznik_barszczu=0
         self._organizmy=[]
         self._logger=logger
         self._okno=okno
@@ -67,22 +69,19 @@ class Swiat:
         randY=0
         randC=0
         znak=None
-        liczba_stworzen=11*n
-        while liczba_stworzen > 0:
-            randC=randrange(11)
 
-            Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
-            for g in Gatunki:
-               for i in range(n):
-                    znak=g
-                    while True:
-                        randX=randrange(self.__szerokosc)
-                        randY=randrange(self.__wysokosc)
-                        if self.__plansza[randX][randY]==None:
-                            #dodaj organizm
-                            self.makeOrganizm(randX, randY,znak)
-                            liczba_stworzen-=1
-                            break
+        Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
+        for g in Gatunki:
+            for i in range(n):
+                znak=g
+                while True:
+                    randX=randrange(self.__szerokosc)
+                    randY=randrange(self.__wysokosc)
+                    if self.__plansza[randX][randY]==None:
+                        #dodaj organizm
+                        self.makeOrganizm(randX, randY,znak)
+                        liczba_stworzen-=1
+                        break
 
     def fullname(self, x):
         if x=='A': return "ANTYLOPA"
@@ -169,7 +168,7 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
-        if c=='C' or c=='B' : return
+        if c=='C' : return
 
         if c=='W': self.__plansza[x][y]=Wilk(self)
         elif c=='O': self.__plansza[x][y]=Owca(self)
@@ -178,7 +177,9 @@ class Swiat:
         elif c=='L': self.__plansza[x][y]=Lis(self)
         #elif c=='C': self.__plansza[x][y]=CyberOwca(self)
         elif c=='T': self.__plansza[x][y]=Trawa(self)
-        #elif c=='B': self.__plansza[x][y]=Barszcz(self)
+        elif c=='B':
+            self.__plansza[x][y]=Barszcz(self)
+            self._licznik_barszczu+=1
         elif c=='J': self.__plansza[x][y]=Jagoda(self)
         elif c=='G': self.__plansza[x][y]=Guarana(self)
         elif c=='M': self.__plansza[x][y]=Mlecz(self)

@@ -166,7 +166,7 @@ class Okno:
             print("down key")
             self.nowaTura()
         def ability(e):
-            _klawisz="q"
+            self._klawisz="q"
             print("special ability")
         def click(e):
             x=e.x
