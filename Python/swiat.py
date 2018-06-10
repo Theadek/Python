@@ -33,7 +33,6 @@ class Swiat:
         self._organizmy=[]
         self._logger=logger
         self._okno=okno
-        self.makeOrganizm(5,5,"@")
         self.losuj(2)
 
 
@@ -55,6 +54,12 @@ class Swiat:
             if o.getAlive()==False:
                 self._organizmy.remove(o)
 
+    def usun_wszystko(self):
+        self._organizmy.clear()
+        for x in range(self.__szerokosc):
+            for y in range(self.__wysokosc):
+                self.__plansza[x][y]=None
+
     def wykonajTure(self):
         #czy skill aktywny()
         for o in self._organizmy:
@@ -70,7 +75,7 @@ class Swiat:
         randY=0
         randC=0
         znak=None
-
+        self.makeOrganizm(5,5,"@")
         Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
         for g in Gatunki:
             for i in range(n):
@@ -82,6 +87,7 @@ class Swiat:
                         #dodaj organizm
                         self.makeOrganizm(randX, randY,znak)
                         break
+        self.wykonajTure()
 
     def fullname(self, x):
         if x=='A': return "ANTYLOPA"

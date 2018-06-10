@@ -100,6 +100,13 @@ class Okno:
         self._klawisz = ""
         print("Nowa tura!")
 
+    def nowaGra(self):
+        self._swiat.usun_wszystko()
+        self._c_plansza.delete(ALL)
+        self._swiat.losuj(2)
+        self.rysujPlansze()
+        self.umiescZdjecia()
+
     def rysujPlansze(self):
         for i in range(0, self._wysokosc):
             self._c_plansza.create_line(0, i * self._rozmiarPola, self._szerokosc * self._rozmiarPola,
@@ -197,20 +204,23 @@ class Okno:
         b_zapisz=Button(self._master, text="Zapisz", command=self.zapisz)
         b_wczytaj=Button(self._master, text="Wczytaj", command=self.wczytaj)
         b_nowa_tura=Button(self._master, text="Nowa Tura", command=self.nowaTura)
+        b_nowa_gra=Button(self._master, text="Nowa Gra", command=self.nowaGra)
 
         #ustawianie rozmiaru okna
         if(self._rozmiarPola*self._szerokosc<300):
             self._master.geometry("300x"+str(self._rozmiarPola*self._wysokosc+300))
-            b_zapisz.place(x=0, y=0, width=100, height=40)
-            b_wczytaj.place(x=100, y=0, width=100, height=40)
-            b_nowa_tura.place(x=200, y=0, width=100, height=40)
+            b_zapisz.place(x=0, y=0, width=75, height=40)
+            b_wczytaj.place(x=75, y=0, width=75, height=40)
+            b_nowa_tura.place(x=150, y=0, width=75, height=40)
+            b_nowa_gra.place(x=225, y=0, width=75, height=40)
             self._listbox.place(x=0, y=50, width=300, height=200)
         else:
             self._master.geometry(str(self._rozmiarPola*self._szerokosc)+"x"+str(self._rozmiarPola*self._wysokosc+300))
             pol_x = (self._rozmiarPola * self._szerokosc - 300) / 2
-            b_zapisz.place(x=pol_x, y=0, width=100, height=40)
-            b_wczytaj.place(x=pol_x + 100, y=0, width=100, height=40)
-            b_nowa_tura.place(x=pol_x + 200, y=0, width=100, height=40)
+            b_zapisz.place(x=pol_x, y=0, width=75, height=40)
+            b_wczytaj.place(x=pol_x + 75, y=0, width=75, height=40)
+            b_nowa_tura.place(x=pol_x +150, y=0, width=75, height=40)
+            b_nowa_gra.place(x=pol_x + 225, y=0, width=75, height=40)
             self._listbox.place(x=pol_x, y=50, width=300, height=200)
 
 
