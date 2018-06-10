@@ -79,8 +79,9 @@ class Okno:
 
     def zapisz(self):
         plik = simpledialog.askstring("Zapisywanie", "Podaj nazwę pliku", parent=self._master)
+        self._swiat.zapisz(plik)
         print("Zapis!")
-        print(plik)
+        print(str(plik))
 
     def wczytaj(self):
         plik=simpledialog.askstring("Wczytywanie","Podaj nazwę pliku", parent=self._master)
@@ -97,7 +98,7 @@ class Okno:
         for i in self._logger.getLog():
             self._listbox.insert(END, i)
 
-        self._klawisz = ""
+        self._swiat.setKlawisz("")
         print("Nowa tura!")
 
     def nowaGra(self):
@@ -157,23 +158,23 @@ class Okno:
         self._master.resizable(0,0)
         self.setImages()
         def left(e):
-            self._klawisz="left"
+            self._swiat.setKlawisz("left")
             print("left key")
             self.nowaTura()
         def right(e):
-            self._klawisz="right"
+            self._swiat.setKlawisz("right")
             print("right key")
             self.nowaTura()
         def up(e):
-            self._klawisz="up"
+            self._swiat.setKlawisz("up")
             print("upper key")
             self.nowaTura()
         def down(e):
-            self._klawisz="down"
+            self._swiat.setKlawisz("down")
             print("down key")
             self.nowaTura()
         def ability(e):
-            self._klawisz="q"
+            self._swiat.setKlawisz("q")
             print("special ability")
         def click(e):
             x=e.x

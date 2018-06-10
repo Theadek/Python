@@ -14,6 +14,7 @@ from Organizmy.Zwierzeta.antylopa import Antylopa
 from Organizmy.Zwierzeta.czlowiek import Czlowiek
 from Organizmy.Zwierzeta.cyberOwca import CyberOwca
 from logger import Logger
+import pickle
 
 
 #//jednorazowe tworzenie czlowieka w kostruktorze
@@ -32,7 +33,8 @@ class Swiat:
         self._licznik_barszczu=0
         self._organizmy=[]
         self._logger=logger
-        self._okno=okno
+        #self._okno=okno
+        self._klawisz=""
         self.losuj(2)
 
 
@@ -68,6 +70,12 @@ class Swiat:
             else: o.akcja()
 
         self.czysc()
+
+    def zapisz(self, filename):
+        a=[1,2,3]
+        print(self._organizmy)
+        with open(str(filename)+".pickle", 'wb') as handle:
+            pickle.dump(self._organizmy[1], handle)
 
 
     def losuj(self, n):
@@ -120,7 +128,10 @@ class Swiat:
 
 
     def getKlawisz(self):
-        return self._okno.getKlawisz()
+        return self._klawisz
+
+    def setKlawisz(self, klawisz):
+        self._klawisz=klawisz
 
     def getSkill(self):
         return self._skillIsActive
