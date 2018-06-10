@@ -63,21 +63,41 @@ class Swiat:
                 self.__plansza[x][y]=None
 
     def wykonajTure(self):
-        #czy skill aktywny()
-        for o in self._organizmy:
-            if o.getAlive()==False: pass
-            elif o.getBorn()==True: o.setBorn(False)
-            else: o.akcja()
+        if ((self._klawisz == 'q') and (self._cooldown == 0) and (self._skillIsActive == False)):
+            self._skillIsActive = True
+            self._duration = 5
+            self._logger.dodajLog("UMIEJETNOSC CZLOWIEKA AKTYWOWANA")
+        elif (self._klawisz == 'q'):
+            if(self._skillIsActive == True):
+                self._logger.dodajLog("UMIEJETNOSC JEST JUZ AKTYWNA")
+            else:
+                self._logger.dodajLog("UMIEJETNOSC MUSI SIE ODNOWIC")
+        else:
 
-        self.czysc()
+            for o in self._organizmy:
+                if o.getAlive()==False: pass
+                elif o.getBorn()==True: o.setBorn(False)
+                else: o.akcja()
 
+            self.czysc()
+
+            if ((self._skillIsActive) and (self._duration > 0)):
+                self._duration-=1
+            elif ((self._skillIsActive) and (self._duration == 0)):
+                self._skillIsActive = False
+                self._cooldown = 5
+                self._logger.dodajLog("WYCZERPANIE UMIEJETNOSCI CZLOWIEKA")
+            elif (self._cooldown > 0):
+                self._cooldown-=1
+                if (self._cooldown == 0):
+                    self._logger.dodajLog("UMIEJETNOSC CZLOWIEKA ODNOWIONA")
 
     def losuj(self, n):
         randX=0
         randY=0
         randC=0
         znak=None
-        self.makeOrganizm(5,5,"@")
+        self.makeOrganizm(0,0, "@")
         Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
         for g in Gatunki:
             for i in range(n):

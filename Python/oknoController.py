@@ -243,6 +243,7 @@ class Okno:
         def ability(e):
             self._swiat.setKlawisz("q")
             print("special ability")
+            self.nowaTura()
         def click(e):
             if self._new_window_blocked==False:
                 self._new_window_blocked=True
