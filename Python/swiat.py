@@ -99,7 +99,6 @@ class Swiat:
         znak=None
         self.makeOrganizm(0,0, "@")
         Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
-        Gatunki=('B','C')
         for g in Gatunki:
             for i in range(n):
                 znak=g
