@@ -99,9 +99,11 @@ class Okno:
             self._c_plansza.delete(ALL)
             self._c_plansza.pack_forget()
             self.ustawRozmiarOkna()
-           # self.ustawCanvas()
             self.rysujPlansze()
             self.umiescZdjecia()
+            self._listbox.delete(0, END)
+            for i in self._logger.getLog():
+                self._listbox.insert(END, i)
         except FileNotFoundError:
           messagebox.showinfo("Błąd","Nie ma takiego pliku!")
 
@@ -125,6 +127,7 @@ class Okno:
         self._swiat.losuj(2)
         self.rysujPlansze()
         self.umiescZdjecia()
+        self._listbox.delete(0, END)
 
     def rysujPlansze(self):
         for i in range(0, self._wysokosc):
