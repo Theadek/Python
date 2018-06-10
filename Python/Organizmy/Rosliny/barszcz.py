@@ -41,12 +41,12 @@ class Barszcz(Roslina):
         if(self._ref.getOrganizmAtXY(comingX,comingY).getSymbol() == 'C'):
             self._ref._logger.dodajLog(self._ref.fullname("CYBER-OWCA " + str(comingX) + " " + str(comingY) + " ZJADA CALY KRZAK BARSZCZU " + str(self._x) + " " + str(self._y)))
             self._ref.zabij(self)
-            self._ref._licznik_barszczu = -1
+            self._ref._licznik_barszczu -=1
 
         if (self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila):
             self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol()) + " " + str(comingX) + " " + str(comingY) +" ZJADA CALY KRZAK BARSZCZU " + str(self._x) + " " + str(self._y))
             self._ref.zabij(self)
-            self._ref._licznik_barszczu=-1
+            self._ref._licznik_barszczu -=1
 
         self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol())+ " " + str(comingX) + " " + str(comingY) +" UMIERA OD BARSZCZU " + str(self._x) + " " + str(self._y))
         self._ref.zabij(self._ref.getOrganizmAtXY(comingX, comingY))

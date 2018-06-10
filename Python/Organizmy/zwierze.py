@@ -47,6 +47,6 @@ class Zwierze(Organizm):
             self._ref.moveOrganizm(comingX, comingY, self._x, self._y)
         else:
             self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(self._x, self._y).getSymbol()) + " " + str(self._x) + " " + str(self._y) +" ZABIJA " + self._ref.fullname_R(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol()) + " " + str(comingX) + " " + str(comingY))
-            self._ref._organizmy.remove(self._ref.getOrganizmAtXY(comingX, comingY))
+            self._ref.zabij(self._ref.getOrganizmAtXY(comingX, comingY))
 
 

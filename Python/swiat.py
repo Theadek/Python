@@ -12,6 +12,7 @@ from Organizmy.Zwierzeta.lis import Lis
 from Organizmy.Zwierzeta.zolw import Zolw
 from Organizmy.Zwierzeta.antylopa import Antylopa
 from Organizmy.Zwierzeta.czlowiek import Czlowiek
+from Organizmy.Zwierzeta.cyberOwca import CyberOwca
 from logger import Logger
 
 
@@ -133,7 +134,6 @@ class Swiat:
         return odp
 
     def getOrganizmAtXY(self,x,y):
-        print(str(x)+" "+str(y))
         return self.__plansza[x][y]
 
     def zabij(self, org):
@@ -141,15 +141,7 @@ class Swiat:
         self._organizmy.remove(org)
 
     def moveOrganizm(self, oldX, oldY, newX, newY):
-        print(oldX)
-        print(oldY)
-        print(newX)
-        print(newY)
         if self.__plansza[newX][newY]!=None:
-            print(self.__plansza[oldX][oldY])
-            print(str(oldX)+" "+str(oldY))
-            print(self.__plansza[newX][newY])
-            print(str(newX) + " " + str(newY))
             self._logger.dodajLog(
                 self.fullname(self.__plansza[oldX][oldY].getSymbol())+" z "+
                 "("+str(oldX)+","+str(oldY)+") zabija "+
@@ -167,14 +159,13 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
-        if c=='C' : return
 
         if c=='W': self.__plansza[x][y]=Wilk(self)
         elif c=='O': self.__plansza[x][y]=Owca(self)
         elif c=='A': self.__plansza[x][y]=Antylopa(self)
         elif c=='Z': self.__plansza[x][y]=Zolw(self)
         elif c=='L': self.__plansza[x][y]=Lis(self)
-        #elif c=='C': self.__plansza[x][y]=CyberOwca(self)
+        elif c=='C': self.__plansza[x][y]=CyberOwca(self)
         elif c=='T': self.__plansza[x][y]=Trawa(self)
         elif c=='B':
             self.__plansza[x][y]=Barszcz(self)
