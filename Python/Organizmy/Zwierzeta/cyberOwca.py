@@ -13,7 +13,7 @@ class CyberOwca(Zwierze):
         self._najblizszy_barszcz=None
 
     def szukajBarszczu(self):
-        shortest_path = 1000
+        shortest_path = 100000
         for x in range(0, self._ref.getWidth()):
             for y in range(0, self._ref.getHeight()):
                 if self._ref.getOrganizmAtXY(x, y) !=None:
@@ -28,12 +28,12 @@ class CyberOwca(Zwierze):
     def akcja(self):
         if self._ref._licznik_barszczu>0:
             self.szukajBarszczu()
-            print("Cyber-owca: "+str(self._x)+" "+str(self._y)+" "+str(self._najblizszy_barszcz))
-            print(self._ref.getOrganizmAtXY(self._najblizszy_barszcz[0], self._najblizszy_barszcz[1]))
 
             #idź w stronę barszczu
+            print("Ilość barszczu: "+str(self._ref._licznik_barszczu))
             tmpX=self._x
             tmpY=self._y
+            print(str(self._najblizszy_barszcz)+" "+str(self._x)+" "+str(self._y))
             if self._najblizszy_barszcz[0] < self._x: tmpX-=1
             elif self._najblizszy_barszcz[0] > self._x: tmpX+=1
             elif self._najblizszy_barszcz[1] < self._y: tmpY-=1

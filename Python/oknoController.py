@@ -245,13 +245,13 @@ class Okno:
             print("special ability")
             self.nowaTura()
         def click(e):
-            if self._new_window_blocked==False:
-                self._new_window_blocked=True
-                x=e.x
-                y=e.y
-                wspolrzedne_xy=(x//self._rozmiarPola, y//self._rozmiarPola)
-                self.dodajOrganizm(wspolrzedne_xy)
-                self._swiat.makeOrganizm(wspolrzedne_xy[0], wspolrzedne_xy[1],self._zn)
+            x = e.x
+            y = e.y
+            wspolrzedne_xy = (x // self._rozmiarPola, y // self._rozmiarPola)
+            if self._swiat.getOrganizmAtXY(wspolrzedne_xy[0], wspolrzedne_xy[1]) == None:
+                if self._new_window_blocked==False:
+                    self._new_window_blocked=True
+                    self.dodajOrganizm(wspolrzedne_xy)
 
         scrollbar = Scrollbar(self._master)
         self._listbox = Listbox(self._master, bd=0, yscrollcommand=scrollbar.set)
