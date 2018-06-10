@@ -10,14 +10,17 @@ from Organizmy.Zwierzeta.owca import Owca
 from Organizmy.Zwierzeta.lis import Lis
 from Organizmy.Zwierzeta.zolw import Zolw
 from Organizmy.Zwierzeta.antylopa import Antylopa
+from Organizmy.Zwierzeta.czlowiek import Czlowiek
 from logger import Logger
+
 
 #//jednorazowe tworzenie czlowieka w kostruktorze
 #//makeOrganizm w losuj()
 #//dodać sprawdzzanie czy skill aktywny
 class Swiat:
 
-    def __init__(self, rozmiar, logger):
+    def __init__(self, rozmiar, logger, okno):
+        from oknoController import Okno
         self.__wysokosc=rozmiar[1]
         self.__szerokosc=rozmiar[0]
         self.__plansza=[[None for y in range(self.__wysokosc)] for x in range(self.__szerokosc)]
@@ -26,6 +29,8 @@ class Swiat:
         self._duration=0
         self._organizmy=[]
         self._logger=logger
+        self._okno=okno
+        self.makeOrganizm(5,5,"@")
         self.losuj(2)
 
 
@@ -109,7 +114,8 @@ class Swiat:
         elif x == 'Z': return "ZOLWA";
 
 
-
+    def getKlawisz(self):
+        return self._okno.getKlawisz()
 
     def getSkill(self):
         return self._skillIsActive
@@ -163,7 +169,7 @@ class Swiat:
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
-        if c=='C' or c=='B' or c=='@': return
+        if c=='C' or c=='B' : return
 
         if c=='W': self.__plansza[x][y]=Wilk(self)
         elif c=='O': self.__plansza[x][y]=Owca(self)
@@ -176,7 +182,7 @@ class Swiat:
         elif c=='J': self.__plansza[x][y]=Jagoda(self)
         elif c=='G': self.__plansza[x][y]=Guarana(self)
         elif c=='M': self.__plansza[x][y]=Mlecz(self)
-        #elif c=='@': self.__plansza[x][y]=Czlowiek(self)
+        elif c=='@': self.__plansza[x][y]=Czlowiek(self)
 
         #debugowanie
         #print(type(self.__plansza[x][y]))

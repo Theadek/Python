@@ -7,6 +7,7 @@ import swiat
 
 class Okno:
 
+
     def __init__(self, log, r=(0,0)):
         self._szerokosc=r[0]
         self._wysokosc=r[1]
@@ -17,7 +18,7 @@ class Okno:
         self._logger=log
         self._listbox=None
 
-
+        self._klawisz = None
 
     def setSwiat(self, s):
         self._swiat=s
@@ -87,16 +88,16 @@ class Okno:
         print(plik)
 
     def nowaTura(self):
+        self._swiat.wykonajTure()
         self._logger.czyscLog()
         self._c_plansza.delete(ALL)
         self.rysujPlansze()
         self.umiescZdjecia()
         self._listbox.delete(0, END)
-        self._swiat.wykonajTure()
         for i in self._logger.getLog():
             self._listbox.insert(END, i)
 
-
+        self._klawisz = ""
         print("Nowa tura!")
 
     def rysujPlansze(self):
@@ -149,14 +150,23 @@ class Okno:
         self._master.resizable(0,0)
         self.setImages()
         def left(e):
+            self._klawisz="left"
             print("left key")
+            self.nowaTura()
         def right(e):
+            self._klawisz="right"
             print("right key")
+            self.nowaTura()
         def up(e):
+            self._klawisz="up"
             print("upper key")
+            self.nowaTura()
         def down(e):
+            self._klawisz="down"
             print("down key")
+            self.nowaTura()
         def ability(e):
+            _klawisz="q"
             print("special ability")
         def click(e):
             x=e.x
@@ -205,3 +215,6 @@ class Okno:
 
 
         self._master.mainloop()
+
+    def getKlawisz(self):
+        return self._klawisz

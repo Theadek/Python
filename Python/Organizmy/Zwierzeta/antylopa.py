@@ -24,22 +24,10 @@ class Antylopa(Zwierze):
                 break
             elif ((szansa == 1) and (self._ref.getOrganizmAtXY(tmpX, tmpY).getSila() > self._sila)):
                 self.ucieczka()
-                break;
+                break
             else:
                 self._ref.getOrganizmAtXY(tmpX, tmpY).kolizja(self._x, self._y)
                 break
-
-
-    def kolizja (self, comingX, comingY):
-        if (self._ref.getOrganizmAtXY(comingX, comingY).getSymbol() == self._symbol):
-            super().kolizja(comingX, comingY)
-        else:
-            szansa = random.randrange(2)
-            if ((szansa == 1) and (self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila)):
-                self._ucieczka()
-            else:
-                super().kolizja(comingX, comingY)
-
 
     def ucieczka(self):
         posibilities = self._ref.availableMoves(self._x, self._y)
@@ -52,19 +40,32 @@ class Antylopa(Zwierze):
             elif (posibilities[kierunek] == "LEFT"): tmpX-=1
             elif (posibilities[kierunek] == "RIGHT"): tmpX+=1
             if (self._ref.getOrganizmAtXY(tmpX, tmpY) == None):
-                self._ref._logger.dodajLog("ANTYLOPA UCIEKLA Z POLA " + self._x + " " + self._y)
+                self._ref._logger.dodajLog("ANTYLOPA UCIEKLA Z POLA " + str(self._x) + " " + str(self._y))
                 self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
                 break
             else:
                 posibilities.pop(kierunek)
+
+    def kolizja (self, comingX, comingY):
+        if (self._ref.getOrganizmAtXY(comingX, comingY).getSymbol() == self._symbol):
+            super().kolizja(comingX, comingY)
+        else:
+            szansa = random.randrange(2)
+            if ((szansa == 1) and (self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila)):
+                self.ucieczka()
+            else:
+                super().kolizja(comingX, comingY)
+
+
+
 
 
 
 
     def __init__(self, r):
         super(Antylopa, self).__init__(r)
-        self._sila = 4;
-        self._inicjatywa = 4;
-        self._symbol = 'A';
-        self._justBorn = True;
-        self._alive = True;
+        self._sila = 4
+        self._inicjatywa = 4
+        self._symbol = 'A'
+        self._justBorn = True
+        self._alive = True

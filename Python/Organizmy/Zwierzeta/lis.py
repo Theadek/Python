@@ -31,8 +31,8 @@ class Lis(Zwierze):
 
     def __init__(self, r):
         super(Lis, self).__init__(r)
-        self._sila = 3;
-        self._inicjatywa = 7;
-        self._symbol = 'L';
-        self._justBorn = True;
-        self._alive = True;
+        self._sila = 3
+        self._inicjatywa = 7
+        self._symbol = 'L'
+        self._justBorn = True
+        self._alive = True

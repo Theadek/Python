@@ -13,7 +13,7 @@ okno = Okno(log,rozmiar)
 
 #rozmiar jest tuplą, ma w sobie (szerokość, wysokość)
 
-swiat=Swiat(rozmiar, log)
+swiat=Swiat(rozmiar, log, okno)
 okno.setSwiat(swiat)
 # mam nadzieje ze działa
 
