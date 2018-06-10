@@ -22,7 +22,7 @@ class Okno:
         self._b_wczytaj = None
         self._b_nowa_tura = None
         self._b_nowa_gra = None
-
+        self._new_window_blocked=False
         self._klawisz = None
 
     def setSwiat(self, s):
@@ -197,6 +197,28 @@ class Okno:
                                      height=self._rozmiarPola * self._wysokosc)
             self._c_plansza.pack(side="bottom")
 
+    def dodajOrganizm(self, wspolrzedne_xy):
+        def sel():
+            self._new_window_blocked = False
+            zn = str(var.get())
+            self._swiat.makeOrganizm(wspolrzedne_xy[0], wspolrzedne_xy[1], zn)
+            self.umiescZdjecia()
+            root.destroy()
+
+        root = Tk()
+        var = StringVar(master=root)
+
+        List=[]
+        Gatunki=["Antylopa", "Cyber-owca", "Owca", "Wilk", "Lis", "Zolw","Trawa","Guarana", "Mlecz", "Barszcz", "Jagoda"]
+        for i in range(0,11):
+            List.append(Radiobutton(root, text=Gatunki[i], variable=var, value=Gatunki[i][:1],
+                         command=sel,tristatevalue=0))
+            List[i].pack(anchor="w")
+
+        label = Label(root)
+        label.pack()
+        root.mainloop()
+
     def symulacja(self):
         self._master=Tk()
         self._master.title("Symulacja")
@@ -222,9 +244,13 @@ class Okno:
             self._swiat.setKlawisz("q")
             print("special ability")
         def click(e):
-            x=e.x
-            y=e.y
-            wspolrzedne_xy=(x//self._rozmiarPola, y//self._rozmiarPola)
+            if self._new_window_blocked==False:
+                self._new_window_blocked=True
+                x=e.x
+                y=e.y
+                wspolrzedne_xy=(x//self._rozmiarPola, y//self._rozmiarPola)
+                self.dodajOrganizm(wspolrzedne_xy)
+                self._swiat.makeOrganizm(wspolrzedne_xy[0], wspolrzedne_xy[1],self._zn)
 
         scrollbar = Scrollbar(self._master)
         self._listbox = Listbox(self._master, bd=0, yscrollcommand=scrollbar.set)

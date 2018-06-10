@@ -168,6 +168,7 @@ class Swiat:
 
 
     def makeOrganizm(self, x, y, c):
+        print("wololo")
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
 
