@@ -4,6 +4,7 @@ from tkinter import simpledialog
 from tkinter import Scrollbar
 from tkinter import Listbox
 import swiat
+import pickle
 
 class Okno:
 
@@ -17,6 +18,10 @@ class Okno:
         self._swiat=None
         self._logger=log
         self._listbox=None
+        self._b_zapisz = None
+        self._b_wczytaj = None
+        self._b_nowa_tura = None
+        self._b_nowa_gra = None
 
         self._klawisz = None
 
@@ -79,14 +84,27 @@ class Okno:
 
     def zapisz(self):
         plik = simpledialog.askstring("Zapisywanie", "Podaj nazwę pliku", parent=self._master)
-        self._swiat.zapisz(plik)
-        print("Zapis!")
-        print(str(plik))
+        if plik != None:
+            with open(str(plik)+".pickle", 'wb') as handle:
+                pickle.dump(self._swiat, handle)
 
     def wczytaj(self):
         plik=simpledialog.askstring("Wczytywanie","Podaj nazwę pliku", parent=self._master)
-        print("Wczytaj!")
-        print(plik)
+        try:
+            with open(str(plik) + ".pickle", 'rb') as handle:
+                self._swiat = pickle.load(handle)
+            self._logger=self._swiat._logger
+            self._szerokosc=self._swiat.getWidth()
+            self._wysokosc=self._swiat.getHeight()
+            self._c_plansza.delete(ALL)
+            self._c_plansza.pack_forget()
+            self.ustawRozmiarOkna()
+           # self.ustawCanvas()
+            self.rysujPlansze()
+            self.umiescZdjecia()
+        except FileNotFoundError:
+          messagebox.showinfo("Błąd","Nie ma takiego pliku!")
+
 
     def nowaTura(self):
         self._logger.czyscLog()
@@ -152,6 +170,30 @@ class Okno:
                 self._c_plansza.create_image(x * self._rozmiarPola, y * self._rozmiarPola, image=obraz,
                                              anchor=NW)
 
+    def ustawRozmiarOkna(self):
+        if (self._rozmiarPola * self._szerokosc < 300):
+            self._master.geometry("300x" + str(self._rozmiarPola * self._wysokosc + 300))
+            self._b_zapisz.place(x=0, y=0, width=75, height=40)
+            self._b_wczytaj.place(x=75, y=0, width=75, height=40)
+            self._b_nowa_tura.place(x=150, y=0, width=75, height=40)
+            self._b_nowa_gra.place(x=225, y=0, width=75, height=40)
+            self._listbox.place(x=0, y=50, width=300, height=200)
+            self._c_plansza = Canvas(self._master, bg="grey", width=self._rozmiarPola * self._szerokosc,
+                                     height=self._rozmiarPola * self._wysokosc)
+            self._c_plansza.pack(side="bottom")
+        else:
+            self._master.geometry(
+                str(self._rozmiarPola * self._szerokosc) + "x" + str(self._rozmiarPola * self._wysokosc + 300))
+            pol_x = (self._rozmiarPola * self._szerokosc - 300) / 2
+            self._b_zapisz.place(x=pol_x, y=0, width=75, height=40)
+            self._b_wczytaj.place(x=pol_x + 75, y=0, width=75, height=40)
+            self._b_nowa_tura.place(x=pol_x + 150, y=0, width=75, height=40)
+            self._b_nowa_gra.place(x=pol_x + 225, y=0, width=75, height=40)
+            self._listbox.place(x=pol_x, y=50, width=300, height=200)
+            self._c_plansza = Canvas(self._master, bg="grey", width=self._rozmiarPola * self._szerokosc,
+                                     height=self._rozmiarPola * self._wysokosc)
+            self._c_plansza.pack(side="bottom")
+
     def symulacja(self):
         self._master=Tk()
         self._master.title("Symulacja")
@@ -180,19 +222,23 @@ class Okno:
             x=e.x
             y=e.y
             wspolrzedne_xy=(x//self._rozmiarPola, y//self._rozmiarPola)
-            print(wspolrzedne_xy)
-
-        self._c_plansza = Canvas(self._master, bg="grey", width=self._rozmiarPola * self._szerokosc,
-                           height=self._rozmiarPola * self._wysokosc)
-        self._c_plansza.pack(side="bottom")
-
-        self.rysujPlansze()
-        self.umiescZdjecia()
 
         scrollbar = Scrollbar(self._master)
         self._listbox = Listbox(self._master, bd=0, yscrollcommand=scrollbar.set)
         scrollbar.config(command=self._listbox.yview)
 
+
+
+
+        self._b_zapisz=Button(self._master, text="Zapisz", command=self.zapisz)
+        self._b_wczytaj=Button(self._master, text="Wczytaj", command=self.wczytaj)
+        self._b_nowa_tura=Button(self._master, text="Nowa Tura", command=self.nowaTura)
+        self._b_nowa_gra=Button(self._master, text="Nowa Gra", command=self.nowaGra)
+
+        #ustawianie rozmiaru okna
+        self.ustawRozmiarOkna()
+        self.rysujPlansze()
+        self.umiescZdjecia()
 
         self._master.bind("<Left>", left)
         self._master.bind("<Right>", right)
@@ -201,28 +247,6 @@ class Okno:
         self._master.bind("<q>", ability)
         self._master.bind("<Q>", ability)
         self._c_plansza.bind("<Button 1>", click)
-
-        b_zapisz=Button(self._master, text="Zapisz", command=self.zapisz)
-        b_wczytaj=Button(self._master, text="Wczytaj", command=self.wczytaj)
-        b_nowa_tura=Button(self._master, text="Nowa Tura", command=self.nowaTura)
-        b_nowa_gra=Button(self._master, text="Nowa Gra", command=self.nowaGra)
-
-        #ustawianie rozmiaru okna
-        if(self._rozmiarPola*self._szerokosc<300):
-            self._master.geometry("300x"+str(self._rozmiarPola*self._wysokosc+300))
-            b_zapisz.place(x=0, y=0, width=75, height=40)
-            b_wczytaj.place(x=75, y=0, width=75, height=40)
-            b_nowa_tura.place(x=150, y=0, width=75, height=40)
-            b_nowa_gra.place(x=225, y=0, width=75, height=40)
-            self._listbox.place(x=0, y=50, width=300, height=200)
-        else:
-            self._master.geometry(str(self._rozmiarPola*self._szerokosc)+"x"+str(self._rozmiarPola*self._wysokosc+300))
-            pol_x = (self._rozmiarPola * self._szerokosc - 300) / 2
-            b_zapisz.place(x=pol_x, y=0, width=75, height=40)
-            b_wczytaj.place(x=pol_x + 75, y=0, width=75, height=40)
-            b_nowa_tura.place(x=pol_x +150, y=0, width=75, height=40)
-            b_nowa_gra.place(x=pol_x + 225, y=0, width=75, height=40)
-            self._listbox.place(x=pol_x, y=50, width=300, height=200)
 
 
         self._master.mainloop()

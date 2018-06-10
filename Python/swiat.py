@@ -71,12 +71,6 @@ class Swiat:
 
         self.czysc()
 
-    def zapisz(self, filename):
-        a=[1,2,3]
-        print(self._organizmy)
-        with open(str(filename)+".pickle", 'wb') as handle:
-            pickle.dump(self._organizmy[1], handle)
-
 
     def losuj(self, n):
         randX=0
