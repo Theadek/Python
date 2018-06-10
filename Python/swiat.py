@@ -137,8 +137,8 @@ class Swiat:
         return self.__plansza[x][y]
 
     def zabij(self, org):
-        self.__plansza[org.getX()][org.getY()]=None
-        self._organizmy.remove(org)
+        self._organizmy.remove(self.getOrganizmAtXY(org.getX(), org.getY()))
+        self.__plansza[org.getX()][org.getY()] = None
 
     def moveOrganizm(self, oldX, oldY, newX, newY):
         if self.__plansza[newX][newY]!=None:

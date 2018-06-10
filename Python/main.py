@@ -5,8 +5,10 @@ from logger import Logger
 from Organizmy.organizm import Organizm
 
 log=Logger()
-rozmiar=(15,15)
-okno = Okno(log,rozmiar)
+#rozmiar=(15,15)
+okno = Okno(log,(0,0))
+rozmiar=okno.wczytaj_rozmiar()
+
 
 #rozmiar=okno.wczytaj_rozmiar()
 

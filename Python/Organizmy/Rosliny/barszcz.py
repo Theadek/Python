@@ -27,7 +27,7 @@ class Barszcz(Roslina):
             if ((self._ref.getOrganizmAtXY(tmpX, tmpY) != None) and (isinstance(self._ref.getOrganizmAtXY(tmpX,tmpY), Zwierze))):
                 if (self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() == 'C'):
                     pass
-                if ((self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() != '@') or (self._ref.getSkill()==False)):
+                elif ((self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol() != '@') or (self._ref.getSkill()==False)):
                     self._ref._logger.dodajLog("BARSZCZ Z " + str(self._x) + " " + str(self._y) + " ZABIJA " + self._ref.fullname_R(self._ref.getOrganizmAtXY(tmpX, tmpY).getSymbol()) + str(tmpX) + " " + str(tmpY))
                     self._ref.zabij(self._ref.getOrganizmAtXY(tmpX, tmpY))
                 else:
@@ -40,13 +40,15 @@ class Barszcz(Roslina):
     def kolizja(self, comingX, comingY):
         if(self._ref.getOrganizmAtXY(comingX,comingY).getSymbol() == 'C'):
             self._ref._logger.dodajLog(self._ref.fullname("CYBER-OWCA " + str(comingX) + " " + str(comingY) + " ZJADA CALY KRZAK BARSZCZU " + str(self._x) + " " + str(self._y)))
-            self._ref.zabij(self)
+            self._ref.zabij(self._ref.getOrganizmAtXY(self._x, self._y))
+            self._ref.moveOrganizm(comingX, comingY, self._x, self._y)
             self._ref._licznik_barszczu -=1
 
-        if (self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila):
+        elif (self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila):
             self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol()) + " " + str(comingX) + " " + str(comingY) +" ZJADA CALY KRZAK BARSZCZU " + str(self._x) + " " + str(self._y))
             self._ref.zabij(self)
             self._ref._licznik_barszczu -=1
 
-        self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol())+ " " + str(comingX) + " " + str(comingY) +" UMIERA OD BARSZCZU " + str(self._x) + " " + str(self._y))
-        self._ref.zabij(self._ref.getOrganizmAtXY(comingX, comingY))
+        else:
+            self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol())+ " " + str(comingX) + " " + str(comingY) +" UMIERA OD BARSZCZU " + str(self._x) + " " + str(self._y))
+            self._ref.zabij(self._ref.getOrganizmAtXY(comingX, comingY))
