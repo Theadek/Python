@@ -189,7 +189,6 @@ class Swiat:
 
 
     def makeOrganizm(self, x, y, c):
-        print("wololo")
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+
                               " na ("+str(x)+","+str(y)+")")
 
@@ -206,10 +205,6 @@ class Swiat:
         elif c=='M': self.__plansza[x][y]=Mlecz(self)
         elif c=='@': self.__plansza[x][y]=Czlowiek(self)
 
-        #debugowanie
-        #print(type(self.__plansza[x][y]))
-        #print(str(x)+" "+str(y))
-        #print(self.__plansza[x][y].getSymbol())
         self.__plansza[x][y].setX(x)
         self.__plansza[x][y].setY(y)
         if len(self._organizmy)==0:
