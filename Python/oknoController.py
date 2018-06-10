@@ -88,8 +88,8 @@ class Okno:
         print(plik)
 
     def nowaTura(self):
-        self._swiat.wykonajTure()
         self._logger.czyscLog()
+        self._swiat.wykonajTure()
         self._c_plansza.delete(ALL)
         self.rysujPlansze()
         self.umiescZdjecia()
