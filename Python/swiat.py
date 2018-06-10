@@ -99,6 +99,7 @@ class Swiat:
         znak=None
         self.makeOrganizm(0,0, "@")
         Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
+        Gatunki=('B','C')
         for g in Gatunki:
             for i in range(n):
                 znak=g
@@ -199,9 +200,7 @@ class Swiat:
         elif c=='L': self.__plansza[x][y]=Lis(self)
         elif c=='C': self.__plansza[x][y]=CyberOwca(self)
         elif c=='T': self.__plansza[x][y]=Trawa(self)
-        elif c=='B':
-            self.__plansza[x][y]=Barszcz(self)
-            self._licznik_barszczu+=1
+        elif c=='B': self.__plansza[x][y]=Barszcz(self)
         elif c=='J': self.__plansza[x][y]=Jagoda(self)
         elif c=='G': self.__plansza[x][y]=Guarana(self)
         elif c=='M': self.__plansza[x][y]=Mlecz(self)

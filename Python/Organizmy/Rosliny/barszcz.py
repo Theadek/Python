@@ -10,6 +10,7 @@ class Barszcz(Roslina):
         self._symbol='B'
         self._justBorn=True
         self._alive=True
+        self._ref._licznik_barszczu += 1
 
 
     def akcja(self):

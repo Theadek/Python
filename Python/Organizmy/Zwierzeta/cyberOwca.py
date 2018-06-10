@@ -26,7 +26,15 @@ class CyberOwca(Zwierze):
                             self._najblizszy_barszcz = (x, y)
 
     def akcja(self):
+        #ret=0
+        #for x in range(0, self._ref.getWidth()):
+        #    for y in range(0, self._ref.getHeight()):
+        #        if self._ref.getOrganizmAtXY(x, y):
+        #            if self._ref.getOrganizmAtXY(x, y).getSymbol()=='B':
+        #                ret+=1
+
         if self._ref._licznik_barszczu>0:
+        #if ret>0:
             self.szukajBarszczu()
 
             #idź w stronę barszczu

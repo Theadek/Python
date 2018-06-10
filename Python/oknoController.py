@@ -101,12 +101,22 @@ class Okno:
             self.ustawRozmiarOkna()
             self.rysujPlansze()
             self.umiescZdjecia()
+            self._new_window_blocked = False
             self._listbox.delete(0, END)
+            self._c_plansza.bind("<Button 1>", self.click)
             for i in self._logger.getLog():
                 self._listbox.insert(END, i)
         except FileNotFoundError:
           messagebox.showinfo("Błąd","Nie ma takiego pliku!")
 
+    def click(self,e):
+            x = e.x
+            y = e.y
+            wspolrzedne_xy = (x // self._rozmiarPola, y // self._rozmiarPola)
+            if self._swiat.getOrganizmAtXY(wspolrzedne_xy[0], wspolrzedne_xy[1]) == None:
+                if self._new_window_blocked==False:
+                    self._new_window_blocked=True
+                    self.dodajOrganizm(wspolrzedne_xy)
 
     def nowaTura(self):
         self._logger.czyscLog()
@@ -128,6 +138,7 @@ class Okno:
         self.rysujPlansze()
         self.umiescZdjecia()
         self._listbox.delete(0, END)
+        self._new_window_blocked=False
 
     def rysujPlansze(self):
         for i in range(0, self._wysokosc):
@@ -244,14 +255,7 @@ class Okno:
             self._swiat.setKlawisz("q")
             print("special ability")
             self.nowaTura()
-        def click(e):
-            x = e.x
-            y = e.y
-            wspolrzedne_xy = (x // self._rozmiarPola, y // self._rozmiarPola)
-            if self._swiat.getOrganizmAtXY(wspolrzedne_xy[0], wspolrzedne_xy[1]) == None:
-                if self._new_window_blocked==False:
-                    self._new_window_blocked=True
-                    self.dodajOrganizm(wspolrzedne_xy)
+
 
         scrollbar = Scrollbar(self._master)
         self._listbox = Listbox(self._master, bd=0, yscrollcommand=scrollbar.set)
@@ -276,7 +280,7 @@ class Okno:
         self._master.bind("<Down>", down)
         self._master.bind("<q>", ability)
         self._master.bind("<Q>", ability)
-        self._c_plansza.bind("<Button 1>", click)
+        self._c_plansza.bind("<Button 1>", self.click)
 
 
         self._master.mainloop()
