@@ -218,6 +218,7 @@ class Okno:
         def ability(e):
             self._swiat.setKlawisz("q")
             print("special ability")
+            self.nowaTura()
         def click(e):
             x=e.x
             y=e.y
