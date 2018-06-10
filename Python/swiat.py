@@ -99,6 +99,7 @@ class Swiat:
         znak=None
         self.makeOrganizm(0,0, "@")
         Gatunki=('A','B','C','Z','G','J','L','M','O','T','W')
+        Gatunki=('B','C')
         for g in Gatunki:
             for i in range(n):
                 znak=g
@@ -189,6 +190,11 @@ class Swiat:
 
     def zerujLicznik(self):
         self._licznik_barszczu=0
+
+    def zwiekszLicznik(self):
+        self._licznik_barszczu+=1
+    def zmniejszLicznik(self):
+        self._licznik_barszczu-=1
 
     def makeOrganizm(self, x, y, c):
         self._logger.dodajLog("Nowy organizm typu "+self.fullname(c)+

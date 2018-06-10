@@ -10,7 +10,7 @@ class Barszcz(Roslina):
         self._symbol='B'
         self._justBorn=True
         self._alive=True
-        self._ref._licznik_barszczu += 1
+        self._ref.zwiekszLicznik()
 
 
     def akcja(self):
@@ -43,12 +43,12 @@ class Barszcz(Roslina):
             self._ref._logger.dodajLog(self._ref.fullname("CYBER-OWCA " + str(comingX) + " " + str(comingY) + " ZJADA CALY KRZAK BARSZCZU " + str(self._x) + " " + str(self._y)))
             self._ref.zabij(self._ref.getOrganizmAtXY(self._x, self._y))
             self._ref.moveOrganizm(comingX, comingY, self._x, self._y)
-            self._ref._licznik_barszczu -=1
+            self._ref.zmniejszLicznik()
 
         elif (self._ref.getOrganizmAtXY(comingX, comingY).getSila() >= self._sila):
             self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol()) + " " + str(comingX) + " " + str(comingY) +" ZJADA CALY KRZAK BARSZCZU " + str(self._x) + " " + str(self._y))
             self._ref.zabij(self)
-            self._ref._licznik_barszczu -=1
+            self._ref.zmniejszLicznik()
 
         else:
             self._ref._logger.dodajLog(self._ref.fullname(self._ref.getOrganizmAtXY(comingX, comingY).getSymbol())+ " " + str(comingX) + " " + str(comingY) +" UMIERA OD BARSZCZU " + str(self._x) + " " + str(self._y))
