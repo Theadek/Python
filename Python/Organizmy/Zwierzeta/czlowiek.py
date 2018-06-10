@@ -45,7 +45,7 @@ class Czlowiek(Zwierze):
             self._ucieczka()
 
 
-    def ucieczka(self):
+    def _ucieczka(self):
         posibilities = []
         posibilities = self._ref.availableMoves(self._x, self._y)
         while (len(posibilities) > 0):
@@ -58,7 +58,7 @@ class Czlowiek(Zwierze):
             elif (posibilities[kierunek] == "RIGHT"):tmpX+=1
 
             if (self._ref.getOrganizmAtXY(tmpX, tmpY) == None):
-                self._ref.logger.dodajLog("CZLOWIEK UCIEKL Z POLA " + std(self._x) +" " + std(self._y))
+                self._ref._logger.dodajLog("CZLOWIEK UCIEKL Z POLA " + str(self._x) +" " + str(self._y))
                 self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
                 break
             else:
