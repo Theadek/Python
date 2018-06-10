@@ -5,7 +5,7 @@ class Roslina(Organizm):
 
     def __init__(self, ref):
         super().__init__(ref)
-        self._luck = 25
+        self._luck = 80
 
     def akcja(self):
         mozliwosci=self._ref.availableMoves(self._x,self._y)

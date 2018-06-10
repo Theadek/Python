@@ -134,6 +134,7 @@ class Okno:
     def nowaGra(self):
         self._swiat.usun_wszystko()
         self._c_plansza.delete(ALL)
+        self._swiat.zerujLicznik()
         self._swiat.losuj(2)
         self.rysujPlansze()
         self.umiescZdjecia()
