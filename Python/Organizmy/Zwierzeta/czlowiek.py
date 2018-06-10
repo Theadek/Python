@@ -58,7 +58,7 @@ class Czlowiek(Zwierze):
             elif (posibilities[kierunek] == "RIGHT"):tmpX+=1
 
             if (self._ref.getOrganizmAtXY(tmpX, tmpY) == None):
-                self._ref.logger.dodajLog("CZLOWIEK UCIEKL Z POLA " + self._x +" " + self._y)
+                self._ref.logger.dodajLog("CZLOWIEK UCIEKL Z POLA " + std(self._x) +" " + std(self._y))
                 self._ref.moveOrganizm(self._x, self._y, tmpX, tmpY)
                 break
             else:
